@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMG Business Series</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+        body { font-family: 'Pretendard', sans-serif; }
+       
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+       
+        @keyframes fade-in-up {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up { animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+ 
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .animate-shimmer {
+            animation: shimmer 3s infinite linear;
+            background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.05) 75%);
+            background-size: 200% 100%;
+        }
+       
+        .delay-300 { animation-delay: 300ms; }
+        .delay-600 { animation-delay: 600ms; }
+        .delay-900 { animation-delay: 900ms; }
+       
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+ 
+        .img-contain img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+        }
+    </style>
+</head>
+<body class="bg-[#f8f9fa] min-h-screen text-gray-900 selection:bg-[#00bfa5] selection:text-white">
+ 
+    <div id="intro-page" class="fixed inset-0 z-50 bg-[#001c3d] flex flex-col items-center justify-center p-6 text-center bg-gradient-to-b from-[#001c3d] to-[#000a1a] transition-all duration-700 ease-in-out">
+        <div class="max-w-2xl w-full">
+            <h1 class="text-[#00bfa5] text-xs font-bold tracking-[0.3em] uppercase mb-8 animate-fade-in-up">HMG Core Content</h1>
+           
+            <div class="relative mb-8 px-4 animate-float">
+                <span class="absolute -top-10 -left-2 text-[#00bfa5] text-7xl opacity-30 font-serif">“</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white leading-tight">
+                    <span class="block animate-fade-in-up">추격자가 아닌 선도자가 되기 위해,</span>
+                    <span class="block mt-4 text-2xl md:text-3xl font-medium opacity-90 animate-fade-in-up delay-300 text-transparent bg-clip-text bg-gradient-to-r from-white to-[#00bfa5]">우리는 지금 무엇을 준비해야 할까요?</span>
+                </h2>
+                <span class="absolute -bottom-16 -right-2 text-[#00bfa5] text-7xl opacity-30 font-serif">”</span>
+            </div>
+ 
+            <p class="text-white/40 mb-8 text-sm tracking-widest uppercase animate-fade-in-up delay-600">HMG Business Series: 변화선점 전략</p>
+           
+            <button onclick="startContent()" class="group relative px-10 py-4 mb-8 bg-gradient-to-r from-[#00bfa5] to-[#008f80] border-none text-white font-bold rounded-full shadow-lg hover:scale-105 transition-all duration-300 animate-fade-in-up delay-600">
+                <span class="relative z-10 flex items-center gap-2">
+                    콘텐츠 시작하기
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </span>
+            </button>
+           
+            <div class="animate-fade-in-up delay-900 bg-white/5 p-8 mt-4 max-w-3xl mx-auto text-center shadow-xl rounded-2xl border border-white/10 relative overflow-hidden animate-shimmer">
+                <p class="text-white/80 text-sm md:text-base leading-relaxed mb-6 relative z-10">
+                    단순히 적응하거나 빠르게 대응하는 것으로는 충분하지 않습니다.<br>
+                    현대자동차그룹의 모든 리더는 변화를 선점(Pre-empting Change)하기 위한 고민해야 합니다.<br><br>
+                    변화 선점(다른 사람들이 아직 보지 못하는 것을 바라보고,<br>
+                    먼저 기회와 장애물을 예상하고, 아무도 가지 않는 곳으로 나아가는 것)은<br>
+                    불확실성의 시대에 게임 체인저로서 현대자동차그룹의 입지를 강화하는 방법입니다.
+                </p>
+                <p class="text-[#00bfa5] text-xs font-bold tracking-widest uppercase relative z-10">- 정의선 회장, '24년 GLF 클로징 스피치 -</p>
+            </div>
+        </div>
+    </div>
+ 
+    <div id="main-content" class="hidden opacity-0 transition-opacity duration-700 ease-in-out p-4 md:p-8 min-h-screen flex flex-col">
+        <div class="max-w-4xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden border border-gray-100 flex-1 flex flex-col">
+            <header class="bg-[#001c3d] p-10 text-white text-center cursor-pointer hover:bg-[#002a5c] transition-colors" onclick="returnToIntro()">
+                <h1 class="text-xs font-medium mb-2 opacity-70 tracking-[0.2em] uppercase">HMG Core Content</h1>
+                <h2 class="text-2xl font-bold">HMG Business Series</h2>
+                <p class="text-[10px] mt-2 opacity-50 underline underline-offset-4">첫 화면으로 돌아가기</p>
+            </header>
+           
+            <section class="bg-[#001c3d] px-8 py-12 text-white text-center border-t border-t-white/10">
+                <div class="max-w-3xl mx-auto text-center">
+                    <div class="text-white text-sm md:text-base leading-relaxed">
+                        <p>HMG 전체 구성원들이 ‘변화선점’을 위한 전략과 방법을 고민하고 실행하는 데 참고할 수 있는</p>
+                        <p class="text-[#00ffc8] font-bold text-base inline">‘HMG 핵심 콘텐츠’ 3종</p>
+                        <span class="text-white font-normal text-base inline">을 전달드립니다.</span>
+                    </div>
+                </div>
+            </section>
+           
+            <main class="px-8 py-12 space-y-8 bg-gray-50/50 flex-1">
+                <div id="article-list" class="space-y-6"></div>
+            </main>
+ 
+            <section class="bg-white px-8 py-12 text-center border-t border-gray-100">
+                <div class="max-w-2xl mx-auto">
+                    <p class="text-gray-600 text-sm md:text-base font-medium leading-relaxed tracking-tight animate-pulse">
+                        ✨ 추격자가 아닌 선도자가 되기 위해,
+                        <span class="relative inline-block px-2 ml-1 py-1">
+                            <span class="absolute inset-0 bg-[#00bfa5] opacity-20 transform -skew-x-12 rounded-lg"></span>
+                            <span class="relative text-[#001c3d] font-bold">우리는 지금 무엇을 준비해야 할까요?</span>
+                        </span>
+                    </p>
+                </div>
+            </section>
+        </div>
+    </div>
+ 
+    <div id="modal-overlay" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-all duration-300 opacity-0">
+        <div class="max-w-3xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]">
+            <div class="p-6 md:p-8 flex-1 overflow-y-auto no-scrollbar">
+                <div class="flex justify-between items-start mb-6">
+                    <span id="modal-category" class="text-[#00bfa5] text-xs font-bold uppercase tracking-wider"></span>
+                    <button onclick="closeModal()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+                <h2 id="modal-title" class="text-2xl md:text-3xl font-bold text-gray-900 mb-6"></h2>
+               
+                <!-- Video Container -->
+                <div id="video-container" class="hidden aspect-video w-full mb-6 bg-black rounded-xl overflow-hidden shadow-lg">
+                    <video id="hls-video" controls class="w-full h-full"></video>
+                </div>
+ 
+                <p id="modal-body" class="text-gray-600 leading-relaxed"></p>
+            </div>
+            <div class="p-6 bg-gray-50 border-t border-gray-100 text-right">
+                <button onclick="closeModal()" class="px-6 py-2 bg-gray-900 text-white font-medium rounded-full hover:bg-gray-800 transition-colors">닫기</button>
+            </div>
+        </div>
+    </div>
+ 
+    <script>
+        // 전역변수로 hls 인스턴스 선언 (비디오 제어용)
+        let hlsPlayer = null;
+ 
+        const articles = [
+            {
+                id: 1,
+                title: "현대차그룹은 28년간 왜 수소 사업을 집중해왔을까요?",
+                category: "01. 수소",
+                description: "수소는 단순한 연료가 아닙니다. 에너지 환경 변화와 국제 정세에 따른 수소의 전략적 기능 그리고 HMG가 수소 밸류체인별 어떤 사업을 만들어가는지 살펴봅니다.",
+                imageContent: `<img src="https://i.ibb.co/j9XP4Rp7/image.png" alt="수소" class="w-full h-full object-contain">`,
+                videoUrl: "https://ep-hrdstreamingendpoint2-hdecmkio.westeurope.streaming.mediakind.com/89238109-f999-46bd-8ce8-b33ab7347f6c/Hydrogen_The_Energy_Carrier.ism/manifest(format=m3u8-cmaf)%22
+            },
+            {
+                id: 2,
+                title: "모빌리티 경쟁이 고도화될수록, 협업은 필수입니다.",
+                category: "02. 판을 흔드는 모빌리티 동맹",
+                description: "어떤 역량을 내재화하고 무엇을 전략적 협업 관계로 풀어갈지에 대한 판단이 중요합니다. 모빌리티 생태계의 새로운 경쟁 질서와 자율주행 기술 협업의 의미, 우리가 주목해야 할 방향성을 담았습니다.",
+                imageContent: `<img src="https://i.ibb.co/7tkvGywr/image.png" alt="모빌리티" border="0">`,
+                // 영상 스트리밍 주소 연동
+                videoUrl: "https://ep-hrdstreamingendpoint2-hdecmkio.westeurope.streaming.mediakind.com/cd5fb51d-fe72-4f46-8db6-66a5eb40d84d/Mobility_ecosystem_main_KOR_sub.ism/manifest(format=m3u8-cmaf)%22
+            },
+            {
+                id: 3,
+                title: "현장이 미래에는 가장 강력한 AI 자산이 됩니다.",
+                category: "03. Physical AI",
+                description: "Physical AI가 현실 세계의 움직임을 데이터로 바꾸는 경쟁을 촉발하면서 차량·공장·물류·공급망·서비스 등 그룹 전 영역의 물리 데이터가 HMG의 미래 경쟁력을 결정짓게 되었습니다.",
+                imageContent: `<img src="https://i.ibb.co/qLMvBmBc/AI.png" alt="AI" border="0">`,
+                videoUrl: "https://ep-hrdstreamingendpoint2-hdecmkio.westeurope.streaming.mediakind.com/94bab7ce-1301-4f31-ab13-23c27d172763/Physical_AI_kor_sub.ism/manifest(format=m3u8-cmaf)%22
+            }
+        ];
+ 
+       
+        // 콘텐츠 리스트 렌더링 함수
+        function renderArticles() {
+            const container = document.getElementById('article-list');
+            container.innerHTML = articles.map(art => `
+                <!-- min-h를 제거하고 이미지 크기에 따라 박스가 수축하도록 설정 -->
+                <article class="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-xl hover:border-[#00bfa5]/30 transition-all duration-300 flex flex-col md:flex-row overflow-hidden">
+                    <!-- 높이를 h-56에서 고정하지 않고 이미지 영역을 명확히 제어 -->
+                    <div class="relative w-full md:w-72 bg-black cursor-pointer overflow-hidden group flex items-center justify-center" style="min-height: 224px;" onclick="openModal(${art.id})">
+                        <!-- 이미지 자체의 여백 원천 차단: block 설정 -->
+                        <div class="w-full h-full flex items-center justify-center">
+                            <div class="w-full h-full [&>img]:block [&>img]:w-full [&>img]:h-full [&>img]:object-contain">
+                                ${art.imageContent}
+                            </div>
+                        </div>
+                        <!-- 재생 버튼 오버레이 -->
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                            <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col justify-center">
+                        <span class="text-[#00bfa5] text-xs font-bold uppercase tracking-widest">${art.category}</span>
+                        <h4 class="font-bold text-gray-900 mb-3 text-xl mt-2 cursor-pointer hover:text-[#00bfa5] transition-colors" onclick="openModal(${art.id})">${art.title}</h4>
+                        <p class="text-sm text-gray-600 mb-6 leading-relaxed line-clamp-3">${art.description}</p>
+                        <p class="text-xs text-gray-400 font-medium italic mt-auto">* 각 이미지를 클릭하면 바로 시청하실 수 있습니다.</p>
+                    </div>
+                </article>
+            `).join('');
+        }
+ 
+        // 인트로 -> 메인 콘텐츠 진입
+        function startContent() {
+            const intro = document.getElementById('intro-page');
+            const main = document.getElementById('main-content');
+            intro.classList.add('opacity-0');
+            setTimeout(() => {
+                intro.classList.add('hidden');
+                main.classList.remove('hidden');
+                // 강제 리플로우 후 투명도 조절
+                void main.offsetWidth;
+                main.classList.add('opacity-100');
+            }, 700);
+        }
+ 
+        // 메인 콘텐츠 -> 인트로 복귀
+        function returnToIntro() {
+            const intro = document.getElementById('intro-page');
+            const main = document.getElementById('main-content');
+            main.classList.remove('opacity-100');
+            setTimeout(() => {
+                main.classList.add('hidden');
+                intro.classList.remove('hidden');
+                void intro.offsetWidth;
+                intro.classList.remove('opacity-0');
+            }, 700);
+        }
+ 
+        // 모달 열기 및 비디오 로드
+        function openModal(id) {
+            const article = articles.find(a => a.id === id);
+            document.getElementById('modal-category').innerText = article.category;
+            document.getElementById('modal-title').innerText = article.title;
+            document.getElementById('modal-body').innerText = article.description;
+           
+            const videoContainer = document.getElementById('video-container');
+            const videoElement = document.getElementById('hls-video');
+ 
+            // HLS 비디오 렌더링 로직
+            if (article.videoUrl) {
+                videoContainer.classList.remove('hidden');
+                if (Hls.isSupported()) {
+                    if (hlsPlayer) { hlsPlayer.destroy(); }
+                    hlsPlayer = new Hls();
+                    hlsPlayer.loadSource(article.videoUrl);
+                    hlsPlayer.attachMedia(videoElement);
+                    hlsPlayer.on(Hls.Events.MANIFEST_PARSED, function() {
+                        videoElement.play().catch(e => console.log("자동재생 방지됨:", e));
+                    });
+                } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
+                    // 사파리 등 네이티브 HLS 지원 브라우저
+                    videoElement.src = article.videoUrl;
+                    videoElement.addEventListener('loadedmetadata', function() {
+                        videoElement.play().catch(e => console.log("자동재생 방지됨:", e));
+                    });
+                }
+            } else {
+                // 영상이 없는 경우 비디오 영역 숨김
+                videoContainer.classList.add('hidden');
+            }
+ 
+            const overlay = document.getElementById('modal-overlay');
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+            // 애니메이션을 위해 약간의 지연
+            setTimeout(() => {
+                overlay.classList.add('opacity-100');
+                overlay.querySelector('div').classList.remove('scale-95');
+                overlay.querySelector('div').classList.add('scale-100');
+            }, 10);
+        }
+ 
+        // 모달 닫기 및 비디오 정지
+        function closeModal() {
+            const overlay = document.getElementById('modal-overlay');
+            const videoElement = document.getElementById('hls-video');
+           
+            // 영상 정지 및 리소스 해제
+            videoElement.pause();
+            if (hlsPlayer) {
+                hlsPlayer.destroy();
+                hlsPlayer = null;
+            }
+            videoElement.src = "";
+ 
+            overlay.classList.remove('opacity-100');
+            overlay.querySelector('div').classList.remove('scale-100');
+            overlay.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex');
+            }, 300);
+        }
+ 
+        // 페이지 로드 완료 시 렌더링 실행
+        window.onload = function() {
+            renderArticles();
+        };
+    </script>
+</body>
+</html>
+ 
+이게 코드입니다ㅠㅠ
+ 
+바쁘실텐데 도와주셔서 감사해요ㅠㅠ
+ 
+영상은 그로잉투게더에 올렸어요. 
+ 
+영상은 어떤거죠..??
+ 
+영상 세개 삽입되어있어요!
+ 
+<!--
+
+사내 게시판 HTML 소스 편집기에 아래 내용을 붙여넣는 용도입니다.
+<script>, Tailwind CDN, HLS.js, fixed/hidden 구조를 사용하지 않아 게시판 호환성을 높였습니다.
+
+-->
+<div style="max-width:980px;margin:0 auto;background:#ffffff;border:1px solid #dfe4ea;border-radius:20px;overflow:hidden;font-family:Pretendard,'Noto Sans KR','Malgun Gothic',Arial,sans-serif;color:#111827;line-height:1.6;box-shadow:0 15px 45px rgba(15,23,42,.10);">
+<div style="padding:44px 28px;text-align:center;color:#ffffff;background:linear-gradient(180deg,#001c3d 0%,#000a1a 100%);">
+<div style="margin-bottom:18px;color:#20d6bd;font-size:13px;font-weight:800;letter-spacing:.25em;">HMG CORE CONTENT</div>
+<div style="font-size:34px;font-weight:900;line-height:1.3;letter-spacing:-.04em;">추격자가 아닌 선도자가 되기 위해,</div>
+<div style="margin-top:12px;color:#b7fff3;font-size:25px;font-weight:700;">우리는 지금 무엇을 준비해야 할까요?</div>
+<div style="margin-top:20px;color:rgba(255,255,255,.55);font-size:13px;letter-spacing:.12em;">HMG Business Series: 변화선점 전략</div>
+<div style="max-width:780px;margin:30px auto 0;padding:24px;border:1px solid rgba(255,255,255,.14);border-radius:16px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.84);font-size:14px;">
+
+      단순히 적응하거나 빠르게 대응하는 것으로는 충분하지 않습니다.<br>
+
+      현대자동차그룹의 모든 리더는 변화를 선점(Pre-empting Change)하기 위해 고민해야 합니다.<br><br>
+
+      변화 선점은 다른 사람들이 아직 보지 못하는 것을 바라보고, 먼저 기회와 장애물을 예상하며,
+
+      아무도 가지 않는 곳으로 나아가는 것입니다. 이는 불확실성의 시대에 게임 체인저로서
+
+      현대자동차그룹의 입지를 강화하는 방법입니다.
+<div style="margin-top:17px;color:#20d6bd;font-size:12px;font-weight:800;">- 정의선 회장, '24년 GLF 클로징 스피치 -</div>
+</div>
+</div>
+ 
+  <div style="padding:30px 26px;text-align:center;color:#ffffff;background:#001c3d;border-top:1px solid rgba(255,255,255,.1);">
+
+    HMG 전체 구성원들이 ‘변화선점’을 위한 전략과 방법을 고민하고 실행하는 데 참고할 수 있는<br>
+<strong style="color:#00ffc8;">‘HMG 핵심 콘텐츠’ 3종</strong>을 전달드립니다.
+</div>
+ 
+  <div style="padding:28px;background:#f6f8fb;">
+<div style="margin-bottom:22px;border:1px solid #e2e8f0;border-radius:16px;overflow:hidden;background:#ffffff;">
+<img src="https://i.ibb.co/j9XP4Rp7/image.png" alt="수소 콘텐츠 이미지" style="display:block;width:100%;max-height:340px;object-fit:contain;background:#000000;">
+<div style="padding:26px;">
+<div style="color:#00a892;font-size:12px;font-weight:900;letter-spacing:.12em;">01. 수소</div>
+<div style="margin-top:8px;font-size:22px;font-weight:900;line-height:1.4;">현대차그룹은 28년간 왜 수소 사업을 집중해왔을까요?</div>
+<div style="margin-top:12px;color:#4b5563;font-size:14px;">수소는 단순한 연료가 아닙니다. 에너지 환경 변화와 국제 정세에 따른 수소의 전략적 기능, 그리고 HMG가 수소 밸류체인별 어떤 사업을 만들어가는지 살펴봅니다.</div>
+<a href="https://ep-hrdstreamingendpoint2-hdecmkio.westeurope.streaming.mediakind.com/89238109-f999-46bd-8ce8-b33ab7347f6c/Hydrogen_The_Energy_Carrier.ism/manifest(format=m3u8-cmaf)%22 target="_blank" rel="noopener" style="display:inline-block;margin-top:18px;padding:10px 18px;border-radius:999px;background:#001c3d;color:#ffffff;font-size:13px;font-weight:800;text-decoration:none;">영상 주소 열기</a>
+</div>
+</div>
+ 
+    <div style="margin-bottom:22px;border:1px solid #e2e8f0;border-radius:16px;overflow:hidden;background:#ffffff;">
+<img src="https://i.ibb.co/7tkvGywr/image.png" alt="모빌리티 콘텐츠 이미지" style="display:block;width:100%;max-height:340px;object-fit:contain;background:#000000;">
+<div style="padding:26px;">
+<div style="color:#00a892;font-size:12px;font-weight:900;letter-spacing:.12em;">02. 판을 흔드는 모빌리티 동맹</div>
+<div style="margin-top:8px;font-size:22px;font-weight:900;line-height:1.4;">모빌리티 경쟁이 고도화될수록, 협업은 필수입니다.</div>
+<div style="margin-top:12px;color:#4b5563;font-size:14px;">어떤 역량을 내재화하고 무엇을 전략적 협업 관계로 풀어갈지에 대한 판단이 중요합니다. 모빌리티 생태계의 새로운 경쟁 질서와 자율주행 기술 협업의 의미, 우리가 주목해야 할 방향성을 담았습니다.</div>
+<a href="https://ep-hrdstreamingendpoint2-hdecmkio.westeurope.streaming.mediakind.com/cd5fb51d-fe72-4f46-8db6-66a5eb40d84d/Mobility_ecosystem_main_KOR_sub.ism/manifest(format=m3u8-cmaf)%22 target="_blank" rel="noopener" style="display:inline-block;margin-top:18px;padding:10px 18px;border-radius:999px;background:#001c3d;color:#ffffff;font-size:13px;font-weight:800;text-decoration:none;">영상 주소 열기</a>
+</div>
+</div>
+ 
+    <div style="border:1px solid #e2e8f0;border-radius:16px;overflow:hidden;background:#ffffff;">
+<img src="https://i.ibb.co/qLMvBmBc/AI.png" alt="Physical AI 콘텐츠 이미지" style="display:block;width:100%;max-height:340px;object-fit:contain;background:#000000;">
+<div style="padding:26px;">
+<div style="color:#00a892;font-size:12px;font-weight:900;letter-spacing:.12em;">03. Physical AI</div>
+<div style="margin-top:8px;font-size:22px;font-weight:900;line-height:1.4;">현장이 미래에는 가장 강력한 AI 자산이 됩니다.</div>
+<div style="margin-top:12px;color:#4b5563;font-size:14px;">Physical AI가 현실 세계의 움직임을 데이터로 바꾸는 경쟁을 촉발하면서 차량·공장·물류·공급망·서비스 등 그룹 전 영역의 물리 데이터가 HMG의 미래 경쟁력을 결정짓게 되었습니다.</div>
+<a href="https://ep-hrdstreamingendpoint2-hdecmkio.westeurope.streaming.mediakind.com/94bab7ce-1301-4f31-ab13-23c27d172763/Physical_AI_kor_sub.ism/manifest(format=m3u8-cmaf)%22 target="_blank" rel="noopener" style="display:inline-block;margin-top:18px;padding:10px 18px;border-radius:999px;background:#001c3d;color:#ffffff;font-size:13px;font-weight:800;text-decoration:none;">영상 주소 열기</a>
+</div>
+</div>
+</div>
+ 
+  <div style="padding:28px;text-align:center;color:#374151;border-top:1px solid #e5e7eb;background:#ffffff;">
+
+    ✨ 추격자가 아닌 선도자가 되기 위해, <strong style="color:#001c3d;">우리는 지금 무엇을 준비해야 할까요?</strong>
+</div>
+</div>
+
+ 
